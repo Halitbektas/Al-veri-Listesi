@@ -11,13 +11,11 @@ class ShoppingLocalDataSource(context: Context) {
         context.getSharedPreferences("shopping_app_db", Context.MODE_PRIVATE)
     private val gson = Gson()
 
-    // Veriyi Kaydet
     fun saveShoppingLists(lists: List<ShoppingList>) {
         val jsonString = gson.toJson(lists)
         sharedPreferences.edit().putString("saved_lists", jsonString).apply()
     }
 
-    // Veriyi Oku
     fun getShoppingLists(): List<ShoppingList> {
         val jsonString = sharedPreferences.getString("saved_lists", null)
         return if (jsonString != null) {

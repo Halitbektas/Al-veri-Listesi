@@ -38,21 +38,20 @@ fun MarketItemCart(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp), // Kartlar birbirine yapışmasın diye dış boşluk
-        shape = RoundedCornerShape(16.dp), // Daha yumuşak köşeler
+            .padding(8.dp),
+        shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White) // Arka plan beyaz olsun
+        colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp), // İçerik kenarlara yapışmasın
+                .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 1. ÜRÜN RESMİ (Sabit alan ve şık görünüm)
             Box(
                 modifier = Modifier
-                    .height(120.dp) // Resim alanı sabit olsun
+                    .height(120.dp)
                     .fillMaxWidth()
                     .padding(4.dp),
                 contentAlignment = Alignment.Center
@@ -60,65 +59,58 @@ fun MarketItemCart(
                 Image(
                     painter = painterResource(id = item.photoID),
                     contentDescription = item.name,
-                    contentScale = ContentScale.Fit, // Resmi sündürmeden sığdır
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier.fillMaxSize()
                 )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // 2. ÜRÜN BİLGİLERİ
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
-                // Ürün Adı
                 Text(
                     text = item.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    maxLines = 1, // Çok uzun isim olursa alt satıra geçmesin
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
-                // Fiyat ve Birim
                 Text(
                     text = "${item.price} ₺ / ${item.unitType}",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary, // Tema rengiyle vurgula
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold
                 )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // 3. SAYAÇ (ARTIR/AZALT) KISMI
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween // Butonları yay
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Azaltma Butonu (FilledTonal daha modern durur)
                 FilledTonalIconButton(
                     onClick = onDecrease,
-                    modifier = Modifier.size(36.dp) // Buton boyutu
+                    modifier = Modifier.size(36.dp)
                 ) {
                     Icon(imageVector = Icons.Default.Remove, contentDescription = "Azalt")
                 }
 
-                // Adet Yazısı
                 Text(
-                    text = "${adet}", // Burası state'den gelmeli aslında
+                    text = "${adet}",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
-                // Artırma Butonu
-                FilledTonalButton( // Artı butonu daha belirgin olsun diye dolu buton
+                FilledTonalButton(
                     onClick = onIncrease,
                     contentPadding = PaddingValues(0.dp),
                     modifier = Modifier.size(36.dp),
-                    shape = RoundedCornerShape(8.dp) // Karemsi buton
+                    shape = RoundedCornerShape(8.dp)
                 ) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "Artır")
                 }
@@ -127,4 +119,3 @@ fun MarketItemCart(
     }
 }
 
-// Preview İçin Örnek Veri

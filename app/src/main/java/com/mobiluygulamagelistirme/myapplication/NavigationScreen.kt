@@ -17,8 +17,6 @@ import com.mobiluygulamagelistirme.myapplication.feature.viewmodel.CreateListVie
 import com.mobiluygulamagelistirme.myapplication.feature.viewmodel.HomeViewModel
 
 
-// ... importlar ...
-
 @Composable
 fun NavigationScreen(
     modifier: Modifier = Modifier,
@@ -29,17 +27,14 @@ fun NavigationScreen(
         startDestination = Screens.HomeScreen.route,
         modifier = modifier
     ) {
-        // --- ANA EKRAN ---
         composable(route = Screens.HomeScreen.route) {
             val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 
-            // Ekran her göründüğünde listeyi yenile
             LaunchedEffect(Unit) { homeViewModel.updateUiList() }
 
             HomeScreen(
                 onNavigateListScreen = { id, isClone ->
                     if (id != null) {
-                        // isClone bilgisini de URL'ye ekliyoruz (1 = true, 0 = false)
                         val cloneInt = if (isClone) 1 else 0
                         navController.navigate("listScreen?id=$id&isClone=$cloneInt")
                     } else {
@@ -50,7 +45,7 @@ fun NavigationScreen(
             )
         }
 
-        // --- LİSTE EKRANI ---
+
         composable(
             route = Screens.ListScreen.route + "&isClone={isClone}",
             arguments = listOf(
@@ -63,8 +58,7 @@ fun NavigationScreen(
             val listId = backStackEntry.arguments?.getInt("id") ?: -1
             val isClone = backStackEntry.arguments?.getInt("isClone") == 1
 
-            // LaunchedEffect ekran döndüğünde tekrar çalışır.
-            // AMA ViewModel içindeki kontrol sayesinde veriler sıfırlanmaz.
+
             LaunchedEffect(listId, isClone) {
                 createListViewModel.initialize(listId, isClone)
             }

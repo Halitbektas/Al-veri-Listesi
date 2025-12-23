@@ -15,9 +15,7 @@ import kotlin.random.Random
 
 class CreateListViewModel(private val repository: ShoppingRepository) : ViewModel() {
 
-    // --- YENİ EKLENEN DEĞİŞKEN (KİLİT) ---
-    // Bu değişken, şu an hangi ID ve Mod (Klon mu?) ile çalıştığımızı tutar.
-    // Ekran dönse bile ViewModel ölmediği için bu bilgi hafızada kalır.
+
     private var initializedKey: String? = null
 
     var listName by mutableStateOf("Yeni Liste")
@@ -26,25 +24,19 @@ class CreateListViewModel(private val repository: ShoppingRepository) : ViewMode
     var searchProductQuery by mutableStateOf("")
         private set
 
-    // Kategori Seçimi
     var selectedCategory by mutableStateOf("Tümü")
         private set
 
     private val _cartItems = mutableStateListOf<Pair<MarketItem, Int>>()
     val cartItems: List<Pair<MarketItem, Int>> get() = _cartItems
 
-    // Düzenlenen listenin ID'si
     private var currentListId: Int? = null
 
-    // --- YENİ EKLENEN FONKSİYON (TEK SEFERLİK YÜKLEME) ---
     fun initialize(listId: Int, isClone: Boolean) {
-        // Benzersiz bir anahtar oluşturuyoruz (Örn: "5-true" veya "-1-false")
         val newKey = "$listId-$isClone"
 
-        // Eğer zaten bu anahtarla yükleme yaptıysak DUR (Ekran dönünce burası çalışır)
         if (initializedKey == newKey) return
 
-        // İlk defa yükleniyorsa işlemleri yap
         if (listId != -1) {
             if (isClone) {
                 cloneList(listId)
@@ -55,13 +47,10 @@ class CreateListViewModel(private val repository: ShoppingRepository) : ViewMode
             resetState()
         }
 
-        // Anahtarı kaydet ki bir dahaki sefere tekrar yükleme yapmasın
         initializedKey = newKey
     }
 
-    // --- ESKİ FONKSİYONLAR (GÜNCELLENDİ: Private yapıldı veya mantığı korundu) ---
 
-    // Private yaptık çünkü artık dışarıdan initialize() çağrılacak
     private fun loadList(id: Int) {
         val list = repository.getListById(id)
         if (list != null) {
@@ -89,22 +78,18 @@ class CreateListViewModel(private val repository: ShoppingRepository) : ViewMode
                     _cartItems.add(originalMarketItem to cartItem.Value)
                 }
             }
-            // Klon olduğu için ID null olmalı (Yeni kayıt)
             currentListId = null
         }
     }
 
-    // Public kalabilir ama initialize içinde kullanıyoruz
     fun resetState() {
         listName = "Yeni Liste"
         _cartItems.clear()
         currentListId = null
         searchProductQuery = ""
         selectedCategory = "Tümü"
-        // Key'i sıfırlamaya gerek yok, çünkü yeni giriş yapıldığında key değişecek zaten.
     }
 
-    // --- DİĞER FONKSİYONLAR AYNI KALIYOR ---
 
     fun onListNameChange(newName: String) { listName = newName }
     fun onSearchProductChange(query: String) { searchProductQuery = query }
@@ -183,7 +168,6 @@ class CreateListViewModel(private val repository: ShoppingRepository) : ViewMode
             repository.addList(listToSave)
         }
 
-        // Kaydettikten sonra state'i temizle ki sonraki girişlerde sorun olmasın
         initializedKey = null
         return true
     }

@@ -7,5 +7,5 @@ data class ShoppingList(
     val name: String,
     val date: Date,
     val items: List<CartItem>,
-    var isArchived: Boolean = false // YENİ ALAN (Varsayılan false)
+    var isArchived: Boolean = false
 )

@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.mobiluygulamagelistirme.myapplication.common.model.CartItem
 
-// --- 1. AKTİF LİSTELER İÇİN BÜYÜK KART (Eski Tasarım + Silme Butonu) ---
 @Composable
 fun ActiveListCart(
     listName: String,
@@ -23,13 +22,13 @@ fun ActiveListCart(
     itemList: List<CartItem>,
     onItemCheckedChange: (CartItem, Boolean) -> Unit,
     onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit // Aktif listeyi de silmek istersin diye ekledim
+    onDeleteClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onEditClick() }, // Karta tıklayınca düzenlemeye git
+            .clickable { onEditClick() },
         shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -39,7 +38,6 @@ fun ActiveListCart(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // --- BAŞLIK VE TARİH VE SİL BUTONU ---
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -58,7 +56,6 @@ fun ActiveListCart(
                     )
                 }
 
-                // Aktif liste silme butonu (Başlığın sağına koyduk)
                 IconButton(onClick = onDeleteClick) {
                     Icon(Icons.Default.Delete, contentDescription = "Listeyi Sil", tint = Color.LightGray)
                 }
@@ -68,7 +65,6 @@ fun ActiveListCart(
             Divider(color = Color.LightGray.copy(alpha = 0.5f))
             Spacer(modifier = Modifier.height(8.dp))
 
-            // --- TABLO BAŞLIKLARI ---
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text("Ürün", style = MaterialTheme.typography.labelMedium, color = Color.Gray, modifier = Modifier.weight(0.4f))
                 Text("Miktar", style = MaterialTheme.typography.labelMedium, color = Color.Gray, modifier = Modifier.weight(0.3f))
@@ -78,7 +74,6 @@ fun ActiveListCart(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // --- ÜRÜNLER LİSTESİ ---
             Column(modifier = Modifier.fillMaxWidth()) {
                 itemList.forEach { item ->
                     CartItemRow(
@@ -93,7 +88,6 @@ fun ActiveListCart(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // --- TOPLAM TUTAR ---
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
@@ -112,7 +106,6 @@ fun ActiveListCart(
     }
 }
 
-// --- 2. GEÇMİŞ LİSTELER İÇİN KÜÇÜK KART (Yeni Tasarım) ---
 @Composable
 fun CompactHistoryCart(
     listName: String,
@@ -137,7 +130,6 @@ fun CompactHistoryCart(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // SOL: Bilgiler
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = listName,
@@ -159,7 +151,6 @@ fun CompactHistoryCart(
                 )
             }
 
-            // SAĞ: Butonlar (Tekrarla ve Sil)
             Row {
                 IconButton(onClick = onRecreateClick) {
                     Icon(Icons.Default.Refresh, contentDescription = "Tekrarla", tint = Color(0xFF4CAF50))
@@ -172,7 +163,6 @@ fun CompactHistoryCart(
     }
 }
 
-// --- YARDIMCI SATIR BİLEŞENİ (Eski koddan) ---
 @Composable
 fun CartItemRow(
     item: CartItem,

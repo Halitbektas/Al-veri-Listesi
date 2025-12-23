@@ -5,11 +5,9 @@ import com.mobiluygulamagelistirme.myapplication.common.model.ShoppingList
 
 class ShoppingRepository(private val dataSource: ShoppingLocalDataSource) {
 
-    // Bellekte tutulan canlı liste
     private var _cachedLists = mutableListOf<ShoppingList>()
 
     init {
-        // Uygulama açılınca verileri yükle
         _cachedLists.addAll(dataSource.getShoppingLists())
     }
 
@@ -30,7 +28,6 @@ class ShoppingRepository(private val dataSource: ShoppingLocalDataSource) {
         }
     }
 
-    // Checkbox işaretlendiğinde veriyi güncelle
     fun updateItemCheckStatus(listId: Int, item: CartItem, isChecked: Boolean) {
         val listIndex = _cachedLists.indexOfFirst { it.id == listId }
         if (listIndex != -1) {
@@ -51,7 +48,6 @@ class ShoppingRepository(private val dataSource: ShoppingLocalDataSource) {
         return _cachedLists.find { it.id == id }
     }
 
-    // Listeyi Tamamen Sil
     fun deleteList(listId: Int) {
         _cachedLists.removeAll { it.id == listId }
         saveChanges()

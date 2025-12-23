@@ -5,7 +5,6 @@ import com.mobiluygulamagelistirme.myapplication.data.ShoppingLocalDataSource
 import com.mobiluygulamagelistirme.myapplication.data.ShoppingRepository
 
 class MyApplication : Application() {
-    // Tüm uygulama genelinde erişilecek Repository
     lateinit var container: AppContainer
 
     override fun onCreate() {
@@ -14,7 +13,6 @@ class MyApplication : Application() {
     }
 }
 
-// Basit bir Dependency Container
 class AppContainer(context: android.content.Context) {
     private val dataSource = ShoppingLocalDataSource(context)
     val repository = ShoppingRepository(dataSource)

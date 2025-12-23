@@ -5,5 +5,5 @@ data class MarketItem(
     val photoID: Int,
     val price: Double,
     val unitType: String,
-    val category: String // YENİ ALAN
+    val category: String
 )

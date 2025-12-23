@@ -89,8 +89,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // SEKMELER (SABİT KALACAK)
-            // Kullanıcı sekmelerin kaybolmasını istemez genelde, o yüzden bunu liste dışında bıraktım.
+
             TabRow(selectedTabIndex = selectedTabIndex) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
@@ -104,14 +103,10 @@ fun HomeScreen(
             val listsToShow = if (selectedTabIndex == 0) activeLists else pastLists
 
             if (listsToShow.isEmpty() && searchQuery.isEmpty()) {
-                // Arama yapılmıyorsa ve liste boşsa, arama çubuğunu yine de gösterelim
-                // Ancak liste boşsa sadece ortada yazı göstermek yerine arama çubuğunu da içeren bir yapı kurabiliriz.
-                // Basitlik adına boş durumda sadece yazıyı gösteriyorum, ama arama çubuğu da eklenirse daha iyi olur.
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Liste Bulunamadı", style = MaterialTheme.typography.bodyLarge, color = Color.Gray)
                 }
             } else {
-                // --- LİSTE VE ARAMA ALANI (HEPSİ KAYDIRILABİLİR) ---
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(columnCount),
                     modifier = Modifier
@@ -123,7 +118,7 @@ fun HomeScreen(
                 ) {
 
                     // 1. ELEMAN: ARAMA VE SIRALAMA ALANI (HEADER)
-                    // span = { GridItemSpan(columnCount) } diyerek tüm genişliği kaplamasını sağlıyoruz.
+
                     item(span = { GridItemSpan(columnCount) }) {
                         Column {
                             OutlinedTextField(

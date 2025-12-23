@@ -64,7 +64,6 @@ fun ListScreen(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
-        // --- 1. LİSTE ADI ---
         item(span = { GridItemSpan(gridCellsCount) }) {
             TextField(
                 value = listeAdi,

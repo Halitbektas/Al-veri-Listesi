@@ -3,7 +3,6 @@ package com.mobiluygulamagelistirme.myapplication.feature
 import com.mobiluygulamagelistirme.myapplication.R
 import com.mobiluygulamagelistirme.myapplication.common.model.MarketItem
 
-// 50 Ürünlük Dev Liste
 val samplemarketList = listOf(
     // MEYVE & SEBZE
     MarketItem("Domates", R.drawable.elma, 25.0, "kg", "Meyve & Sebze"),
